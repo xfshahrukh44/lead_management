@@ -31,22 +31,22 @@ class AuthServiceProvider extends ServiceProvider
             return $user->type === 'Admin';
         });
         
-        // Realtor
-        Gate::define('isRealtor', function($user)
+        // Agent
+        Gate::define('isAgent', function($user)
         {
-            return $user->type === 'Realtor';
+            return $user->type === 'Agent';
         });
 
-        // Cleaner
-        Gate::define('isCleaner', function($user)
+        // Manager
+        Gate::define('isManager', function($user)
         {
-            return $user->type === 'Cleaner';
+            return $user->type === 'Manager';
         });
 
-        // Guest
-        Gate::define('isGuest', function($user)
+        // User
+        Gate::define('isUser', function($user)
         {
-            return $user->type === 'Guest';
+            return $user->type === 'User';
         });
     }
 }

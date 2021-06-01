@@ -37,7 +37,7 @@ abstract class UserRepository implements RepositoryInterface
             // $token = JWTAuth::fromUser($user);
             return response()->json([
                 'user' => $user,
-                'token' => $token
+                // 'token' => $token
             ]);
         }
         catch (\Exception $exception) {

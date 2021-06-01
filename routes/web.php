@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('dashboard');
 });
 
 Auth::routes();
@@ -34,45 +34,66 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function() {
 
     // API RESOURCES-------------------------------------------------
     Route::apiResources(['user'=>'Admin\UserController']);
-    // Route::apiResources(['customer'=>'Admin\CustomerController']);
-    // Route::apiResources(['area'=>'Admin\AreaController']);
-    // Route::apiResources(['market'=>'Admin\MarketController']);
-    // Route::apiResources(['category'=>'Admin\CategoryController']);
-    // Route::apiResources(['brand'=>'Admin\BrandController']);
-    // Route::apiResources(['unit'=>'Admin\UnitController']);
-    // Route::apiResources(['product'=>'Admin\ProductController']);
-    // Route::apiResources(['special_discount'=>'Admin\SpecialDiscountController']);
-    // Route::apiResources(['ledger'=>'Admin\LedgerController']);
-    // Route::apiResources(['stock_in'=>'Admin\StockInController']);
-    // Route::apiResources(['stock_out'=>'Admin\StockOutController']);
-    // Route::apiResources(['order'=>'Admin\OrderController']);
-    // Route::apiResources(['invoice'=>'Admin\InvoiceController']);
-    // Route::apiResources(['vendor'=>'Admin\VendorController']);
-    // Route::apiResources(['receiving'=>'Admin\ReceivingController']);
-    // Route::apiResources(['payment'=>'Admin\PaymentController']);
-    // Route::apiResources(['expense'=>'Admin\ExpenseController']);
-    // Route::apiResources(['marketing'=>'Admin\MarketingController']);
-    // Route::apiResources(['customer_image'=>'Admin\CustomerImageController']);
-    // Route::apiResources(['product_image'=>'Admin\ProductImageController']);
+    Route::apiResources(['lead'=>'Admin\LeadController']);
+    Route::apiResources(['keyword'=>'Admin\KeywordController']);
+    Route::apiResources(['keywordtype'=>'Admin\KeywordTypeController']);
+    Route::apiResources(['logo'=>'Admin\LogoController']);
+    Route::apiResources(['video'=>'Admin\VideoController']);
     // --------------------------------------------------------------
 
     // SEARCH ROUTES--------------------------------------------------------------------------------------------
     Route::get('/search_users', 'Admin\UserController@search_users')->name('search_users');
-    // Route::get('/search_customers', 'Admin\CustomerController@search_customers')->name('search_customers');
-    // Route::get('/search_products', 'Admin\ProductController@search_products')->name('search_products');
-    // Route::get('/search_ledgers', 'Admin\LedgerController@search_ledgers')->name('search_ledgers');
-    // Route::get('/search_stockIns', 'Admin\StockInController@search_stockIns')->name('search_stockIns');
-    // Route::get('/search_stockOuts', 'Admin\StockOutController@search_stockOuts')->name('search_stockOuts');
-    // Route::get('/search_orders', 'Admin\OrderController@search_orders')->name('search_orders');
-    // Route::get('/search_invoices', 'Admin\InvoiceController@search_invoices')->name('search_invoices');
-    // Route::get('/search_vendors', 'Admin\VendorController@search_vendors')->name('search_vendors');
-    // Route::get('/search_receivings', 'Admin\ReceivingController@search_receivings')->name('search_receivings');
-    // Route::get('/search_payments', 'Admin\PaymentController@search_payments')->name('search_payments');
-    // Route::get('/search_expenses', 'Admin\ExpenseController@search_expenses')->name('search_expenses');
-    // Route::get('/search_marketings', 'Admin\MarketingController@search_marketings')->name('search_marketings');
-    // Route::get('/search_customer_ledgers', 'Admin\LedgerController@search_customer_ledgers')->name('search_customer_ledgers');
-    // Route::get('/search_vendor_ledgers', 'Admin\LedgerController@search_vendor_ledgers')->name('search_vendor_ledgers');
+    Route::get('/search_leads', 'Admin\LeadController@search_leads')->name('search_leads');
+    Route::get('/search_keyword', 'Admin\KeywordController@search_keywords')->name('search_keyword');
+    Route::get('/search_keyword_types', 'Admin\KeywordTypeController@search_keywordtypes')->name('search_keyword_types');
+    Route::get('/search_logos', 'Admin\LogoController@search_logos')->name('search_logos');
+    Route::get('/search_videos', 'Admin\LogoController@search_videos')->name('search_videos');
     // ---------------------------------------------------------------------------------------------------------
+
+    // HELPERS---------------------------------------------------------------------------------------------------------------
+    Route::get('/toggle_logo_status', 'Admin\LogoController@toggle_logo_status')->name('toggle_logo_status');
+    Route::get('/toggle_video_status', 'Admin\VideoController@toggle_video_status')->name('toggle_video_status');
+    // ----------------------------------------------------------------------------------------------------------------------
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// ARTISAN COMMAND ROUTES---------------------------------------
+// Route::get('/install', function () {
+//     // Illuminate\Support\Facades\Artisan::call('migrate:fresh', [
+//     //     '--seed' => true
+//     // ]);
+// });
+// Route::get('/migrate', function () {
+//     Illuminate\Support\Facades\Artisan::call('migrate');
+// });
+// Route::get('/stepmigrate', function () {
+//     Illuminate\Support\Facades\Artisan::call('migrate:rollback', [
+//         '--step' => 1
+//     ]);
+// });
+Route::get('/clear', function () {
+    Illuminate\Support\Facades\Artisan::call('cache:clear');
+    Illuminate\Support\Facades\Artisan::call('config:clear');
+    Illuminate\Support\Facades\Artisan::call('config:cache');
+    Illuminate\Support\Facades\Artisan::call('view:clear');
+});
+// Route::get('/passport', function () {
+//     Illuminate\Support\Facades\Artisan::call('passport:install');
+// });
+// Route::get('/key', function () {
+//     Illuminate\Support\Facades\Artisan::call('key:generate');
+// });
+// Route::get('/storage', function () {
+//     Illuminate\Support\Facades\Artisan::call('storage:link');
+// });
+// Route::get('/composer-du', function()
+// {
+//     Illuminate\Support\Facades\Artisan::call('dump-autoload');
+// });
+//--------------------------------------------------------------
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// check_for_ip
+Route::get('/check_for_ip', 'HomeController@check_for_ip')->name('check_for_ip');
+// ip_auth
+Route::get('/ip_auth', 'HomeController@ip_auth')->name('ip_auth');

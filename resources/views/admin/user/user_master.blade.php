@@ -24,9 +24,8 @@
         <select name="type" class="form-control type" required>
             <option value="">Select user type</option>
             <option value="Admin">Admin</option>
-            <option value="Realtor">Realtor</option>
-            <option value="Cleaner">Cleaner</option>
-            <option value="Guest">Guest</option>
+            <option value="Agent">Agent</option>
+            <option value="Manager">Manager</option>
         </select>
     </div>
 </div>

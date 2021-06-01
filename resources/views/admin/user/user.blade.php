@@ -40,26 +40,26 @@
         <!-- status buttons -->
         <div class="col-md-12 row p-2 m-0">
             <!-- All -->
-            <div class="form-group ml-1">
+            <!-- <div class="form-group ml-1">
                 <form action="{{route('user.index')}}">
                     @csrf
                     <button class="btn btn-primary form-control" type="submit" name="type" value="All">All ({{count_by_type("All")}})</button>
                 </form>
-            </div>
+            </div> -->
             <!-- Realtor -->
-            <div class="form-group ml-1">
+            <!-- <div class="form-group ml-1">
                 <form action="{{route('index_realtors')}}">
                     @csrf
                     <button class="btn btn-primary form-control" type="submit" name="type" value="Realtor">Realtors ({{count_by_type("Realtor")}})</button>
                 </form>
-            </div>
+            </div> -->
             <!-- Cleaner -->
-            <div class="form-group ml-1">
+            <!-- <div class="form-group ml-1">
                 <form action="{{route('index_cleaners')}}">
                     @csrf
                     <button class="btn btn-primary form-control" type="submit" name="type" value="Cleaner">Cleaners ({{count_by_type("Cleaner")}})</button>
                 </form>
-            </div>
+            </div> -->
         </div>
          <!-- /.card-header -->
          <div class="card-body">
@@ -128,9 +128,9 @@
         <!-- /.card-body -->
         <div class="card-footer">
          @if(count($users) > 0)
-         {{$users->appends(request()->except('page'))->links()}}
+         {{$users->appends(request()->except('page'))->links('pagination::bootstrap-4')}}
          @endif
-     </div>
+        </div>
  </div>
 </div>
 </div>
@@ -257,6 +257,7 @@
         // persistent active sidebar
         var element = $('li a[href*="'+ window.location.pathname +'"]');
         element.parent().parent().parent().addClass('menu-open');
+        element.addClass('active');
         //*** View Profile ***//
         $('.viewProfileButton').on('click', function(){
             var id = $(this).data('id');

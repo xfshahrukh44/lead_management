@@ -22,19 +22,22 @@ class UserController extends Controller
     
     public function index()
     {
-        $users = $this->userService->paginate(env('PAGINATE'));
+        if(!Gate::allows('isAdmin')){
+            return redirect()->route('lead.index');
+        }
+        $users = $this->userService->paginate(10);
         return view('admin.user.user', compact('users'));
     }
 
     public function index_realtors()
     {
-        $users = $this->userService->paginate_realtors(env('PAGINATE'));
+        $users = $this->userService->paginate_realtors(10);
         return view('admin.user.user', compact('users'));
     }
 
     public function index_cleaners()
     {
-        $users = $this->userService->paginate_cleaners(env('PAGINATE'));
+        $users = $this->userService->paginate_cleaners(10);
         return view('admin.user.user', compact('users'));
     }
     
@@ -70,7 +73,7 @@ class UserController extends Controller
     {
         $id = $request->hidden;
         
-        if(!(auth()->user()->id == $id || auth()->user()->type == "admin"))
+        if(!(auth()->user()->id == $id || auth()->user()->type == "Admin"))
         {
             return response()->json([
                 'success' => FALSE,

@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>{{env('APP_NAME')}}</title>
+  <title>Lead Management</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- jquery ui css-->
@@ -21,7 +21,7 @@
 
   <!-- local css -->
   <link rel="stylesheet" href="{{asset('css/app.css')}}">
-  <!-- <link rel="stylesheet" href="{{asset('css/custom-style.css')}}"> -->
+  <link rel="stylesheet" href="{{asset('css/custom.css')}}">
   <!-- <link rel="stylesheet" href="{{asset('dist/css/adminlte.css')}}"> -->
 
   <!-- adminlte css -->
@@ -80,87 +80,133 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{route('dashboard')}}" class="brand-link" id="topSidebar">
-      <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="LaraStart Logo" class="brand-image img-circle elevation-3"
-      style="opacity: .8">
-      <span class="brand-text font-weight-light">Management System</span>
+      <!-- <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="LaraStart Logo" class="brand-image img-circle elevation-3"
+        style="opacity: .8"> -->
+        <img src="{{asset('images/logo.png')}}" alt="" class="brand-image" >
+      <!-- <span class="brand-text font-weight-light">
+      </span> -->
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
 
       <!-- Sidebar Menu -->
-        <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-                <!-- Dashboard -->
-                <li class="nav-item">
-                    <a href="{{route('dashboard')}}" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt "></i>
-                        <p>
-                            Dashboard
-                        </p>
-                    </a>
-                </li>
+          <!-- Dashboard -->
+          <!-- <li class="nav-item">
+            <a href="{{route('dashboard')}}" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt "></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li> -->
 
-                <!-- Blog Management -->
-                <!-- <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Blog Management
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview ml-2"> -->
-                        <!-- Articles -->
-                        <!-- <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-users"></i>
-                                <small>Articles</small>
-                            </a>
-                        </li>
-                    </ul>
-                </li> -->
+          <!-- lead management -->
+          <li class="nav-item">
+            <a href="{{route('lead.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-headset "></i>
+              <p>
+                Website Management
+              </p>
+            </a>
+          </li>
 
-                <!-- user management -->
-                <li class="nav-item">
-                    <a href="{{route('user.index')}}" class="nav-link">
-                      <i class="nav-icon fas fa-user "></i>
-                      <p>
-                        User Management
-                      </p>
-                    </a>
-                </li>
+          <!-- logo management -->
+          <li class="nav-item">
+            <a href="{{route('logo.index')}}" class="nav-link">
+              <i class="nav-icon far fa-star"></i>
+              <p>
+                Logo Management
+              </p>
+            </a>
+          </li>
+
+          <!-- video management -->
+          <li class="nav-item">
+            <a href="{{route('video.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-photo-video"></i>
+              <p>
+                Video Management
+              </p>
+            </a>
+          </li>
+          
+          <!-- keywords -->
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-key"></i>
+              <p class="para_clr">
+                {{__('Keywords')}}
+                <i class="fas fa-angle-left right" aria-hidden="true"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" >
+              <!-- Keyword Type -->
+              <li class="nav-item">
+                <a href="{{route('keywordtype.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-align-justify" aria-hidden="true"></i>
+                  <p>
+                    Keyword Type
+                  </p>
+                </a>
+              </li>
+              <!-- Lead Keyword -->
+              <li class="nav-item">
+                <a href="{{route('keyword.index')}}" class="nav-link keyword_checklist">
+                  <i class="nav-icon fa fa-key" aria-hidden="true"></i>
+                  <p>
+                    Keyword Checklist
+                  </p>
+                </a>
+              </li>
             </ul>
-        </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+          </li>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        @yield('content_header')
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+          <!-- user management -->
+          @can('isAdmin')
+          <li class="nav-item">
+            <a href="{{route('user.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-users "></i>
+              <p>
+                User Management
+              </p>
+            </a>
+          </li>
+          @endcan
+    </ul>
+  </nav>
+  <!-- /.sidebar-menu -->
+</div>
+<!-- /.sidebar -->
+</aside>
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        @yield('content_body')
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      @yield('content_header')
+    </div><!-- /.container-fluid -->
   </div>
-  <!-- /.content-wrapper -->
+  <!-- /.content-header -->
 
-  <footer class="main-footer">
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      @yield('content_body')
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
 
-  </footer>
+<footer class="main-footer">
+
+</footer>
+
 </div>
 
 <!-- local js -->
@@ -185,7 +231,6 @@
 
 <!-- pusher -->
 <!-- <script src="https://js.pusher.com/7.0/pusher.min.js"></script> -->
-
 
 </body>
 </html>
